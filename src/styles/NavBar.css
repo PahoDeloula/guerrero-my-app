@@ -1,0 +1,16 @@
+
+.menuPrincipal {
+    margin: 50px 100px;
+}
+
+.menuBtn {
+    font-weight: 600;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: all ease-in 0.4s;
+}
+
+.menuBtn:hover {
+    color: #b8332c;
+}

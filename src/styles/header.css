@@ -1,0 +1,13 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+    text-align: right;
+    padding:10px;
+    background-color: #78a6bf;
+}
+
+.imgLogo {
+    width: 250px;
+    margin: 20px 20px 10px 50px;
+}
