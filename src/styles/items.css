@@ -1,9 +1,9 @@
 .itemsContainer {
-    width: 100wh;
-    margin: 20px auto;
     display: flex;
     justify-content: space-around;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
+    width: 100wh;
+    margin-left:20px;
 }
 
 .item {
@@ -15,6 +15,12 @@
     text-align: center;
     box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.1);
 }
+
+.item img {
+    width:auto;
+    max-height: 250px;
+}
+
 .containerBtns {
     display: flex;
     justify-content: space-around;

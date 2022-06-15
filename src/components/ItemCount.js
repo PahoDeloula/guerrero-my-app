@@ -1,26 +1,20 @@
 import { useState } from "react";
 import '../styles/items.css'
 
-const ItemCount = ({stock,initial,onAdd}) => {
+function ItemCount ({stock,initial,onAdd}) {
   const [contador, setContador] = useState(initial)
 
-  const aumentarContador = () => {
+  function aumentarContador () {
     if (contador < stock) {
       setContador(contador + 1)
-    }else {
-      alert('¡Lo sentimos! Ese es el número máximo de stock')
     }
   }
 
-  const disminuirContador = () => {
+  function disminuirContador () {
     if (contador > 0) {
       setContador(contador - 1)
       }
-    else {
-      alert('¡Lo sentimos! Se nos terminó el stock')
-    }
   }
-
   const confirmarContador = () => {
     if (contador <= stock) {
       alert('Se agregaron ' + contador + ' playeras al carrito de compras')
@@ -28,9 +22,7 @@ const ItemCount = ({stock,initial,onAdd}) => {
   }
   return (
     <div className="itemsContainer">
-      <div className="item">
-        <p>Playera: THE BEATLES</p>
-        <p>"Strawberry fields forever":</p>
+      <div>
         <div className="containerBtns">
           <button onClick={disminuirContador} className="btnContainer">-</button>
           <p>{contador}</p>
