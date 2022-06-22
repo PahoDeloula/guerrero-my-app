@@ -1,25 +1,59 @@
-import ItemCount from './ItemCount';
-import React, { useEffect, useState } from 'react'
-import customFetch from '../utils/customFetch';
-import productos from '../utils/productos';
-import ItemList from './ItemList';
+import { useEffect, useState } from "react";
+import ItemList from "./ItemList";
+import {productos} from "../utils/productos";
+import {customFetch} from "../utils/customFetch";
+import { useParams } from "react-router-dom";
+import { getProductsByCategory } from "../utils/customFetch";
 
-const ItemListContainer = (props) => {
+
+function ItemListContainer() {
   const [items, setItems] = useState([])
 
-  useEffect(() => {
-    customFetch(2000, productos)
-    .then(resultado => setItems(resultado))
-  }, [items])
+  const { category } = useParams()
 
-  const onAdd = () => { }
-  return (
-        <div>
-          <h1>{props.saludo}</h1>
-          <ItemCount stock={5} onAdd={onAdd} initial={1} />
-          <ItemList productos= {items}/>
-          </div>
-      )
-  }
+  useEffect(() => {
+    if(!category) {
+      customFetch(productos).then(response => {
+        setItems(response)
+        })
+    } else {
+        getProductsByCategory(category).then(response => {
+          setItems(response)
+        })
+    }
+}, [category])
+
+return (
+  <div>
+    {items?.length <= 0 ? <h1>No hay items</h1> : <ItemList products={items} />}
+  </div>
+)
+}
+
+// useEffect(() => {
+//   getProductsByCategory(category)
+//   .then(response => {
+//     setItems(response)
+//   })
+// }, [])
+
+// function ItemDetailContainer() {
+
+//   const [product, setProduct] = useState()
+//   const { id } = useParams()
+
+// useEffect(() => {
+//   getProductsById(parseInt(id))
+//   .then(response => {
+//     setProduct(response)
+//   })
+// }, [])
+
+//   return (
+//          <div style={{marginTop: '30px'}}>
+//             <ItemDetail {...product} />
+//         </div>
+//   )
+// }
 
 export default ItemListContainer

@@ -14,3 +14,7 @@
 .menuBtn:hover {
     color: #b8332c;
 }
+
+.menuBtn.active {
+    color: #b8332c;
+}

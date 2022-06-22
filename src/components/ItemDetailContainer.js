@@ -1,24 +1,25 @@
-import { useEffect, useState } from "react";
-import ItemDetail from "./ItemDetail";
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { getProductsById } from '../utils/customFetch'
+import ItemDetail from './ItemDetail'
 
-const ItemDetailContainer = () => {
-  const [item, setItem] = useState({});
+function ItemDetailContainer() {
 
-  const params = 1;
+  const [product, setProduct] = useState()
+  const { id } = useParams()
 
-  useEffect(
-      ()=>{
-          fetch('/productos.json').then(res => res.json()).then(data => {
-              const index = data.findIndex(producto => producto.id === params);
-              setItem(data[index]);
-          })
+useEffect(() => {
+  getProductsById(parseInt(id))
+  .then(response => {
+    setProduct(response)
+  })
+}, [id])
 
-      }
-  ,[item]);
-
-  return(
-      <ItemDetail producto={item}/>
+  return (
+         <div style={{marginTop: '30px'}}>
+            <ItemDetail {...product} />
+        </div>
   )
-};
+}
 
-export default ItemDetailContainer;
+export default ItemDetailContainer
