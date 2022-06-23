@@ -1,9 +1,11 @@
 import '../styles/CartWidget.css'
+import { NavLink } from 'react-router-dom'
+
 
 const CartWidget = () => {
   return (
-    <button className="btnCarrito"><i className="fas fa-shopping-cart"></i><span className="btnCarritoNum"> 0</span>
-    </button>
+    <NavLink to="/Cart" className="btnCarrito"><i className="fas fa-shopping-cart"></i><span className="btnCarritoNum"> 0</span>
+    </NavLink>
   )
 }
   
