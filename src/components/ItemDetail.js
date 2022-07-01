@@ -3,7 +3,7 @@ import { CartContext } from './CartContext';
 import { Link } from 'react-router-dom';
 import ItemCount from './ItemCount';
 
-function ItemDetail({title, id, description, stock, price, pictureUrl}) {
+function ItemDetail({title, id, description, stock, price, pictureUrl, price2}) {
   const[borrarConfirmar, setBorrarConfirmar] = useState(false)
 
   const { addItem } = useContext(CartContext)

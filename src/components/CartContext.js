@@ -35,12 +35,27 @@ const removeItem = (id) => {
   setcartItems(cartItems.filter((item) => (item.id !== id)))
 }
 
+const getSubtotal = (price, quantity) => {
+  let subtotal = 0
+  subtotal = subtotal + (price * quantity)
+  return Number(subtotal)                                     
+}
+
+const getTotal  = () => {
+  let total = 0
+  cartItems.forEach((product) => {
+      total = total +(product.price * product.quantity)
+  })
+
+  return Number (total)
+}
+
 const clear = () => {
   setcartItems ([])
 }
 
 return (
-  <CartContext.Provider value={{cartItems, addItem, addItemNavBar, isInCart, removeItem, clear}}>
+  <CartContext.Provider value={{cartItems, addItem, addItemNavBar, isInCart, removeItem, getSubtotal, getTotal, clear}}>
       {children}
   </CartContext.Provider>
 )
