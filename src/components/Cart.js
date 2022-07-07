@@ -1,10 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useContext } from 'react'
 import { CartContext  } from './CartContext'
 import { Link } from 'react-router-dom'
+import { collection, serverTimestamp, addDoc } from 'firebase/firestore';
+import { db } from '../config/firebase'
+import Form from './Form';
 
 function Cart() {
-  const {cartItems, addItemNavBar, removeItem, getSubtotal, getTotal, clear} = useContext(CartContext)
+  const [data, setData] = useState({ name: '', email: '', phone: '' });
+  const [orderId, setOrderId] = useState('');
+  const {cartItems, addItemNavBar, removeItem, getSubtotal, getTotal, deleteAll} = useContext(CartContext)
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setData({
+        ...data,
+        [name]: value,
+      });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const objOrden = {
+      buyer:{
+        name: data.name,
+        phone: data.phone,
+        email: data.email
+      },
+      cartItems,
+      total: getTotal(),
+      date: serverTimestamp(),
+    };
+    const ref = collection(db, 'orders');
+    addDoc(ref, objOrden).then((response) => {
+      setOrderId(response.id);
+      deleteAll()
+    })
+  }
+  if(orderId !== '') {
+    return <h1>¡Gracias por tu compra! Tu número de envío es: {orderId}</h1>
+  }
+
   return (
     <>
     {addItemNavBar() === 0 ? (
@@ -26,7 +62,7 @@ function Cart() {
             <p>Precio: ${products.price} Cantidad: {products.quantity}</p>
             <p>Subtotal: ${getSubtotal(products.price, products.quantity )}</p>   
             <button onClick={() => removeItem(products.id)} >Borrar producto</button>
-            <div><button onClick={clear}>Vaciar Carrito</button></div>   
+            <div><button onClick={deleteAll}>Vaciar Carrito</button></div>   
         </div>        
             ))}
         </div>
@@ -35,6 +71,11 @@ function Cart() {
           <p>{addItemNavBar()} playeras</p>
           <p>TOTAL: ${getTotal()}</p> 
         </div>
+        <Form
+          handleChange={handleChange}
+          data={data}
+          handleSubmit={handleSubmit}
+    />
     </div>
         )}
     </>

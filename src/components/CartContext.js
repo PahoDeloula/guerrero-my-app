@@ -50,12 +50,12 @@ const getTotal  = () => {
   return Number (total)
 }
 
-const clear = () => {
+const deleteAll = () => {
   setcartItems ([])
 }
 
 return (
-  <CartContext.Provider value={{cartItems, addItem, addItemNavBar, isInCart, removeItem, getSubtotal, getTotal, clear}}>
+  <CartContext.Provider value={{cartItems, addItem, addItemNavBar, isInCart, removeItem, getSubtotal, getTotal, deleteAll}}>
       {children}
   </CartContext.Provider>
 )
